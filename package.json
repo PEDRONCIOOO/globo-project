@@ -29,6 +29,7 @@
     "next": "15.2.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-loading": "^2.0.3",
     "react-loading-icons": "^1.1.0",
     "tailwind-merge": "^3.0.2",
     "tailwind-variants": "^1.0.0"

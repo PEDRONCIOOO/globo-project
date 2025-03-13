@@ -28,3 +28,20 @@ body {
 button{
   cursor: pointer;
 }
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: gray;
+}
+
+::-webkit-scrollbar-thumb {
+  background: cyan;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

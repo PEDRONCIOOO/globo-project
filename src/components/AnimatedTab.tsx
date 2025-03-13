@@ -7,7 +7,7 @@ const TABS = [
   { label: "Home", href: "/" },
   { label: "Controles", href: "/controles" },
   { label: "Cadastros", href: "/cadastros" },
-  { label: "Ponto", href: "/ponto" },
+  { label: "Configuração", href: "/ponto" },
 ];
 
 export function AnimatedTabs() {

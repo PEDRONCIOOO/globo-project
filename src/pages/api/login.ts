@@ -36,7 +36,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             JWT_SECRET,
             { expiresIn: '7d' }
         );
-
         // Set HTTP-only cookie
         setCookie('auth-token', token, { 
             req, 

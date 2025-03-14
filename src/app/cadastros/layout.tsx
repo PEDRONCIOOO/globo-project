@@ -15,7 +15,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                 <nav className="flex justify-center space-x-4">
                     <Link href="/cadastros/employees">
                         <CardRevealedPointer>
-                            <span className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium ${pathname === '/cadastros/employees' ? 'bg-cyan-600' : ''}`}>
+                            <span className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium ${pathname === '/cadastros/employees' ? 'border-b-2 border-cyan-500' : ''}`}>
                                 <Users className="h-4 w-4 mr-2" />
                                 Funcionários
                             </span>
@@ -23,7 +23,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                     </Link>
                     <Link href="/cadastros/visitors">
                         <CardRevealedPointer>
-                            <span className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium ${pathname === '/cadastros/visitors' ? 'bg-cyan-600' : ''}`}>
+                            <span className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium ${pathname === '/cadastros/visitors' ? 'border-b-2 border-cyan-500' : ''}`}>
                                 <UserPlus className="h-4 w-4 mr-2" />
                                 Visitantes
                             </span>
@@ -31,7 +31,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                     </Link>
                     <Link href="/cadastros/service-providers">
                         <CardRevealedPointer>
-                            <span className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium ${pathname === '/cadastros/service-providers' ? 'bg-cyan-600' : ''}`}>
+                            <span className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium ${pathname === '/cadastros/service-providers' ? 'border-b-2 border-cyan-500' : ''}`}>
                                 <Building2 className="h-4 w-4 mr-2" />
                                 Prestadores de Serviços
                             </span>

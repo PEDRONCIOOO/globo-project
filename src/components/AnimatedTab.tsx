@@ -42,12 +42,12 @@ export function AnimatedTabs() {
         ref={containerRef}
         className="absolute z-10 w-full overflow-hidden [clip-path:inset(0px_75%_0px_0%_round_17px)] [transition:clip-path_0.25s_ease]"
       >
-        <div className="relative flex w-full justify-center bg-black dark:bg-white">
+        <div className="relative flex w-full justify-center bg-black dark:text-white border-b-2 border-cyan-500">
           {TABS.map((tab, index) => (
             <Link key={index} href={tab.href}>
               <div
                 onClick={() => handleTabClick(tab.label)}
-                className="flex h-8 items-center rounded-full p-3 text-sm font-bold text-white dark:text-black"
+                className="flex h-8 items-center rounded-full p-3 text-sm font-bold text-white dark:text-white"
                 tabIndex={-1}
               >
                 {tab.label}

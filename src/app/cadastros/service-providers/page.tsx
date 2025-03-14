@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { InputFocusBlur } from '@/components/InputFocusBlur';
+import { Spinner } from '@/components/Spinner';
 
 const ServiceProvidersRegisterPage: React.FC = () => {
     const queryClient = useQueryClient();
@@ -16,6 +17,12 @@ const ServiceProvidersRegisterPage: React.FC = () => {
     const [rg, setRg] = useState("");
     const [cpf, setCpf] = useState("");
     const [cnpj, setCnpj] = useState("");
+    const [isPageLoading, setIsPageLoading] = useState(true);
+
+    useEffect(() => {
+        // Simulate page loading
+        setTimeout(() => setIsPageLoading(false), 1000);
+    }, []);
 
     const addServiceProvider = useMutation({
         mutationFn: (newServiceProvider: { name: string; company: string; address: string; phone: string; service: string; rg: string; cpf: string; cnpj: string }) =>
@@ -53,6 +60,14 @@ const ServiceProvidersRegisterPage: React.FC = () => {
         hidden: { opacity: 0, y: -20 },
         visible: { opacity: 1, y: 0 },
     };
+
+    if (isPageLoading){
+        return(
+            <div className="flex items-center justify-center">
+                <Spinner />
+            </div>
+        )
+    }
 
     return (
         <div className="min-h-screen text-white p-6">

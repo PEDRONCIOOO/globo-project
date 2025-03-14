@@ -15,7 +15,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                 <nav className="flex justify-center space-x-4">
                     <Link href="/controles/funcionarios">
                         <CardRevealedPointer>
-                            <span className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium ${pathname === '/controles/funcionarios' ? 'bg-cyan-600' : 'hover:bg-gray-700'}`}>
+                            <span className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium ${pathname === '/controles/funcionarios' ? 'border-b-2 border-cyan-500' : ''}`}>
                                 <Users className="h-4 w-4 mr-2" />
                                 Funcionários
                             </span>
@@ -24,7 +24,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
                     <Link href="/controles/visitantes">
                         <CardRevealedPointer>
-                            <span className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium ${pathname === '/controles/visitantes' ? 'bg-cyan-600' : 'hover:bg-gray-700'}`}>
+                            <span className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium ${pathname === '/controles/visitantes' ? 'border-b-2 border-cyan-500' : ''}`}>
                                 <UserPlus className="h-4 w-4 mr-2" />
                                 Visitantes
                             </span>
@@ -33,7 +33,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
                     <Link href="/controles/prestadores">
                         <CardRevealedPointer>
-                            <span className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium ${pathname === '/controles/prestadores' ? 'bg-cyan-600' : 'hover:bg-gray-700'}`}>
+                            <span className={`flex items-center px-3 py-2 rounded-xl text-sm font-medium ${pathname === '/controles/prestadores' ? 'border-b-2 border-cyan-500' : ''}`}>
                                 <Building2 className="h-4 w-4 mr-2" />
                                 Prestadores de Serviços
                             </span>

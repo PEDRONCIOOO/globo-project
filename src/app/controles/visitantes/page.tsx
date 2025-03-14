@@ -5,6 +5,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import VisitorCard from '@/components/VisitorCard';
 import { AnimatePresence } from 'framer-motion';
+import { Spinner } from '@/components/Spinner';
 
 interface Visitor {
     _id: string;
@@ -77,11 +78,13 @@ const VisitorsPage: React.FC = () => {
         updateVisitor.mutate({ visitorId, action: "saida" });
     };
 
-    if (isLoading) return <p className="text-center">Loading...</p>;
+if (isLoading) return <div className="flex items-center justify-center">
+        <Spinner />
+    </div>;
     if (error) return <p className="text-center text-red-500">Error: {(error as Error).message}</p>;
 
     return (
-        <div className="flex gap-4 flex-wrap">
+        <div className="flex gap-4 flex-wrap justify-center">
             <AnimatePresence>
                 {visitors.map((visitor) => (
                     <VisitorCard

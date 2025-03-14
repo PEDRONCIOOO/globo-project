@@ -1,15 +1,23 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { InputFocusBlur } from "@/components/InputFocusBlur";
+import { Spinner } from "@/components/Spinner";
 
 const EmployeesRegisterPage: React.FC = () => {
     const queryClient = useQueryClient();
     const [name, setName] = useState("");
     const [role, setRole] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
+    const [isPageLoading, setIsPageLoading] = useState(true);
+
+    useEffect(() => {
+        // Simulate page loading
+        setTimeout(() => setIsPageLoading(false), 1000);
+    }, []);
 
     const addWorker = useMutation({
         mutationFn: (newWorker: { name: string; role: string }) =>
@@ -18,6 +26,8 @@ const EmployeesRegisterPage: React.FC = () => {
             queryClient.invalidateQueries({ queryKey: ["workers"] });
             setName("");
             setRole("");
+            setSuccessMessage("Worker successfully added!");
+            setTimeout(() => setSuccessMessage(""), 3000); // Clear message after 3 seconds
         },
         onError: (error) => {
             console.error("Failed to add worker", error);
@@ -42,6 +52,14 @@ const EmployeesRegisterPage: React.FC = () => {
         visible: { opacity: 1, y: 0 },
     };
 
+    if (isPageLoading) {
+        return (
+            <div className="flex items-center justify-center">
+                <Spinner />
+            </div>
+        );
+    }
+
     return (
         <div className="min-h-screen text-white p-6">
             <div className="max-w-7xl m-auto flex flex-col items-center">
@@ -53,6 +71,16 @@ const EmployeesRegisterPage: React.FC = () => {
                 >
                     Registrar um Funcionário
                 </motion.h1>
+                {successMessage && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5 }}
+                        className="mb-4 text-green-500"
+                    >
+                        {successMessage}
+                    </motion.div>
+                )}
                 <motion.form
                     onSubmit={handleSubmit}
                     className="space-y-4"
@@ -84,7 +112,7 @@ const EmployeesRegisterPage: React.FC = () => {
                     </motion.div>
                     <motion.button
                         type="submit"
-                        className="w-full px-4 py-2 bg-cyan-500 hover:bg-cyan-600 rounded transition-colors"
+                        className="w-full px-4 py-2 bg-cyan-500 hover:bg-cyan-600 rounded transition-colors flex items-center justify-center"
                         variants={inputVariants}
                     >
                         Add Worker

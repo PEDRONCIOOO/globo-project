@@ -11,14 +11,19 @@ interface Worker {
   _id: string;
   name: string;
   role: string;
-  logs: { entryTime?: string; leaveTime?: string; faltou?: boolean; date?: string }[];
+  logs: {
+    entryTime?: string;
+    leaveTime?: string;
+    faltou?: boolean;
+    date?: string;
+  }[];
 }
 
 const WorkersPage: React.FC = () => {
   const queryClient = useQueryClient();
   const [buttonState, setButtonState] = useState<
     Map<string, { checkInDisabled: boolean; checkOutDisabled: boolean }>
-  >(new Map()); // Removed `faltouDisabled`
+  >(new Map());
 
   const {
     data: workers = [],
@@ -71,8 +76,21 @@ const WorkersPage: React.FC = () => {
       });
     });
 
-    setButtonState(newButtonState);
-  }, [workers]);
+    // Only update state if the new button state is different
+    if (
+      newButtonState.size !== buttonState.size ||
+      Array.from(newButtonState.entries()).some(([key, value]) => {
+        const oldValue = buttonState.get(key);
+        return (
+          !oldValue ||
+          oldValue.checkInDisabled !== value.checkInDisabled ||
+          oldValue.checkOutDisabled !== value.checkOutDisabled
+        );
+      })
+    ) {
+      setButtonState(newButtonState);
+    }
+  }, [workers, buttonState]); // Dependency array updated to include buttonState
 
   const handleDelete = (workerId: string) => {
     if (confirm("Tem certeza que quer deletar esse funcionário?")) {
@@ -114,7 +132,7 @@ const WorkersPage: React.FC = () => {
             worker={worker}
             buttonState={buttonState}
             onCheckIn={handleCheckIn}
-            onFaltou={handleFaltou} // Pass the handler
+            onFaltou={handleFaltou}
             onCheckOut={handleCheckOut}
             onDelete={handleDelete}
           />

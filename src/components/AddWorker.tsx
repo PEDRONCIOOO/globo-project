@@ -24,6 +24,7 @@ const AddWorker: React.FC = () => {
   const [nascimento, setNascimento] = useState("");
   const [admissao, setAdmissao] = useState("");
   const [salario, setSalario] = useState("");
+  const [ajuda, setAjuda ] = useState("");
   const [numero, setNumero] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
@@ -37,6 +38,7 @@ const AddWorker: React.FC = () => {
       nascimento: string;
       admissao: string;
       salario: string;
+      ajuda: string;
       numero: string;
       email: string;
       address: string;
@@ -53,6 +55,7 @@ const AddWorker: React.FC = () => {
       setNascimento("");
       setAdmissao("");
       setSalario("");
+      setAjuda("");
       setNumero("");
       setEmail("");
       setAddress("");
@@ -75,6 +78,7 @@ const AddWorker: React.FC = () => {
       nascimento.trim() &&
       admissao.trim() &&
       salario.trim() &&
+      ajuda.trim() &&
       numero.trim() &&
       email.trim() &&
       address.trim() &&
@@ -87,6 +91,7 @@ const AddWorker: React.FC = () => {
         nascimento,
         admissao,
         salario,
+        ajuda,
         numero,
         email,
         address,
@@ -94,7 +99,7 @@ const AddWorker: React.FC = () => {
         role,
       });
     } else {
-      alert("Please fill in all fields");
+      alert("Por favor preencha todos os campos, todos são obrigatórios.");
     }
   };
 
@@ -107,7 +112,7 @@ const AddWorker: React.FC = () => {
           transition={{ duration: 0.5 }}
           className="text-3xl font-bold mb-6 text-center"
         >
-          Add New Worker
+          Adicionar Funcionário
         </motion.h1>
         <motion.form
           onSubmit={handleSubmit}
@@ -118,7 +123,7 @@ const AddWorker: React.FC = () => {
         >
           <input
             type="text"
-            placeholder="Worker Name"
+            placeholder="Nome do Funcionário"
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:border-cyan-500"
@@ -126,7 +131,7 @@ const AddWorker: React.FC = () => {
           />
           <input
             type="text"
-            placeholder="CPF"
+            placeholder="CPF/CNPJ"
             value={cpf}
             onChange={(e) => setCpf(e.target.value)}
             className="px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:border-cyan-500"
@@ -158,6 +163,14 @@ const AddWorker: React.FC = () => {
           />
           <input
             type="text"
+            placeholder="Ajuda de Custo"
+            value={ajuda}
+            onChange={(e) => setSalario(e.target.value)}
+            className="px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:border-cyan-500"
+            required
+          />
+          <input
+            type="text"
             placeholder="Numero"
             value={numero}
             onChange={(e) => setNumero(e.target.value)}
@@ -174,7 +187,7 @@ const AddWorker: React.FC = () => {
           />
           <input
             type="text"
-            placeholder="Address"
+            placeholder="Endereço"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
             className="px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:border-cyan-500"
@@ -182,7 +195,7 @@ const AddWorker: React.FC = () => {
           />
           <input
             type="text"
-            placeholder="Contract"
+            placeholder="Tipo de Contrato (CLT/PJ)"
             value={contract}
             onChange={(e) => setContract(e.target.value)}
             className="px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:border-cyan-500"
@@ -190,7 +203,7 @@ const AddWorker: React.FC = () => {
           />
           <input
             type="text"
-            placeholder="Role"
+            placeholder="Cargo"
             value={role}
             onChange={(e) => setRole(e.target.value)}
             className="px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:border-cyan-500"

@@ -16,6 +16,7 @@ const EmployeesRegisterPage: React.FC = () => {
     const [nascimento, setNascimento] = useState("");
     const [admissao, setAdmissao] = useState("");
     const [salario, setSalario] = useState("");
+    const [ajuda, setAjuda] = useState("");
     const [numero, setNumero] = useState("");
     const [email, setEmail] = useState("");
     const [address, setAddress] = useState("");
@@ -36,6 +37,7 @@ const EmployeesRegisterPage: React.FC = () => {
             nascimento: string;
             admissao: string;
             salario: string;
+            ajuda: string;
             numero: string;
             email: string;
             address: string;
@@ -49,12 +51,13 @@ const EmployeesRegisterPage: React.FC = () => {
             setNascimento("");
             setAdmissao("");
             setSalario("");
+            setAjuda("");
             setNumero("");
             setEmail("");
             setAddress("");
             setContract("");
             setRole("");
-            setSuccessMessage("Worker successfully added!");
+            setSuccessMessage("Funcionário adicionado com sucesso!");
             setTimeout(() => setSuccessMessage(""), 3000); // Clear message after 3 seconds
         },
         onError: (error) => {
@@ -71,6 +74,7 @@ const EmployeesRegisterPage: React.FC = () => {
             nascimento.trim() &&
             admissao.trim() &&
             salario.trim() &&
+            ajuda.trim() &&
             numero.trim() &&
             email.trim() &&
             address.trim() &&
@@ -83,6 +87,7 @@ const EmployeesRegisterPage: React.FC = () => {
                 nascimento,
                 admissao,
                 salario,
+                ajuda,
                 numero,
                 email,
                 address,
@@ -196,6 +201,17 @@ const EmployeesRegisterPage: React.FC = () => {
                         />
                     </motion.div>
                     <motion.div variants={inputVariants}>
+                        <label htmlFor="ajuda" className="block text-sm font-medium text-gray-300">Ajuda de Custo:</label>
+                        <InputFocusBlur
+                            type="text"
+                            id="ajuda"
+                            name="ajuda"
+                            value={ajuda}
+                            onChange={(e) => setAjuda(e.target.value)}
+                            required
+                        />
+                    </motion.div>
+                    <motion.div variants={inputVariants}>
                         <label htmlFor="numero" className="block text-sm font-medium text-gray-300">Número:</label>
                         <InputFocusBlur
                             type="text"
@@ -229,7 +245,7 @@ const EmployeesRegisterPage: React.FC = () => {
                         />
                     </motion.div>
                     <motion.div variants={inputVariants}>
-                        <label htmlFor="contract" className="block text-sm font-medium text-gray-300">Contrato:</label>
+                        <label htmlFor="contract" className="block text-sm font-medium text-gray-300">Tipo de contrato (CNPJ ou CLT):</label>
                         <InputFocusBlur
                             type="text"
                             id="contract"

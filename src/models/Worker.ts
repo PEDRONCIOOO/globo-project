@@ -13,6 +13,7 @@ export interface IWorker extends Document {
   nascimento: Date;
   admissao: Date;
   salario: string;
+  ajuda: string;
   numero: string;
   email: string;
   address: string;
@@ -28,6 +29,7 @@ const WorkerSchema = new Schema({
   nascimento: { type: Date, required: true },
   admissao: { type: Date, required: true },
   salario: { type: String, required: true },
+  ajuda: { type: String, required: true},
   numero: { type: String, required: true },
   email: { type: String, required: true },
   address: { type: String, required: true },

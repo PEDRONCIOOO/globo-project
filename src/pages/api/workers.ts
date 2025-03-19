@@ -23,6 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           nascimento,
           admissao,
           salario,
+          ajuda,
           numero,
           email,
           address,
@@ -36,6 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           nascimento,
           admissao,
           salario,
+          ajuda,
           numero,
           email,
           address,
@@ -79,7 +81,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       try {
         const { id } = req.body;
         await Worker.findByIdAndDelete(id);
-        res.status(200).json({ message: "Worker deleted" });
+        res.status(200).json({ message: "Funconário deletado." });
       } catch (error) {
         res.status(500).json({ message: "Failed to delete worker", error });
       }

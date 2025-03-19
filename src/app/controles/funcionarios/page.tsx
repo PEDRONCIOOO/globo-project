@@ -11,14 +11,14 @@ interface Worker {
   _id: string;
   name: string;
   role: string;
-  logs: { entryTime: string; leaveTime?: string }[];
+  logs: { entryTime?: string; leaveTime?: string; faltou?: boolean; date?: string }[];
 }
 
 const WorkersPage: React.FC = () => {
   const queryClient = useQueryClient();
   const [buttonState, setButtonState] = useState<
     Map<string, { checkInDisabled: boolean; checkOutDisabled: boolean }>
-  >(new Map());
+  >(new Map()); // Removed `faltouDisabled`
 
   const {
     data: workers = [],
@@ -49,7 +49,7 @@ const WorkersPage: React.FC = () => {
       action,
     }: {
       workerId: string;
-      action: "entrada" | "saida";
+      action: "entrada" | "saida" | "faltou";
     }) => axios.put("/api/workers", { id: workerId, action }),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["workers"] }),
     onError: (error) => {
@@ -75,7 +75,7 @@ const WorkersPage: React.FC = () => {
   }, [workers]);
 
   const handleDelete = (workerId: string) => {
-    if (confirm("Are you sure you want to delete this worker?")) {
+    if (confirm("Tem certeza que quer deletar esse funcionário?")) {
       deleteWorker.mutate(workerId);
     }
   };
@@ -86,6 +86,10 @@ const WorkersPage: React.FC = () => {
 
   const handleCheckOut = (workerId: string) => {
     updateWorker.mutate({ workerId, action: "saida" });
+  };
+
+  const handleFaltou = (workerId: string) => {
+    updateWorker.mutate({ workerId, action: "faltou" });
   };
 
   if (isLoading)
@@ -102,7 +106,7 @@ const WorkersPage: React.FC = () => {
     );
 
   return (
-    <div className="flex gap-4 flex-wrap justify-center">
+    <div className="grid grid-cols-3 justify-items-center max-w-[1000px] mx-auto">
       <AnimatePresence>
         {workers.map((worker) => (
           <WorkerCard
@@ -110,6 +114,7 @@ const WorkersPage: React.FC = () => {
             worker={worker}
             buttonState={buttonState}
             onCheckIn={handleCheckIn}
+            onFaltou={handleFaltou} // Pass the handler
             onCheckOut={handleCheckOut}
             onDelete={handleDelete}
           />

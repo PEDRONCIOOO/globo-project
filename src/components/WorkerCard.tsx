@@ -24,17 +24,19 @@ const WorkerCard = ({
   buttonState, 
   onCheckIn, 
   onCheckOut, 
+  onFaltou, 
   onDelete 
 }: {
-  worker: { _id: string; name: string; role: string; logs: { entryTime: string; leaveTime?: string }[] };
+  worker: { _id: string; name: string; role: string; logs: { entryTime?: string; leaveTime?: string; faltou?: boolean; date?: string }[] };
   buttonState: Map<string, { checkInDisabled: boolean; checkOutDisabled: boolean }>;
   onCheckIn: (id: string) => void;
   onCheckOut: (id: string) => void;
+  onFaltou: (id: string) => void;
   onDelete: (id: string) => void;
 }) => (
   <motion.div
     variants={itemVariants}
-    className="relative p-4 mb-4 bg-gray-800 rounded-lg shadow-md max-w-2xs w-full"
+    className="relative p-4 mb-4 bg-gray-800 rounded-lg shadow-md max-w-2xs w-full max-h-[200px] overflow-auto"
     layout
   >
     <button
@@ -56,6 +58,12 @@ const WorkerCard = ({
         Chegada
       </button>
       <button
+        onClick={() => onFaltou(worker._id)}
+        className="flex-1 px-3 py-1.5 rounded-md bg-yellow-500 hover:bg-yellow-700 transition-colors"
+      >
+        Faltou
+      </button>
+      <button
         onClick={() => onCheckOut(worker._id)}
         disabled={buttonState.get(worker._id)?.checkOutDisabled}
         className="flex-1 px-3 py-1.5 rounded-md bg-red-500 hover:bg-red-700 disabled:bg-red-900 transition-colors"
@@ -73,19 +81,27 @@ const WorkerCard = ({
             exit={{ opacity: 0, height: 0 }}
             className="flex justify-between"
           >
-            <span>
-              ✅ {new Date(log.entryTime).toLocaleString("pt-BR", {
-                dateStyle: "short",
-                timeStyle: "short",
-              })}
-            </span>
-            {log.leaveTime && (
+            {log.faltou ? (
               <span>
-                ➡️ Saiu: {new Date(log.leaveTime).toLocaleTimeString("pt-BR", {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
+                ❌ Faltou: {new Date(log.date!).toLocaleDateString("pt-BR")}
               </span>
+            ) : (
+              <>
+                <span>
+                  ✅ {new Date(log.entryTime!).toLocaleString("pt-BR", {
+                    dateStyle: "short",
+                    timeStyle: "short",
+                  })}
+                </span>
+                {log.leaveTime && (
+                  <span>
+                    ➡️ Saiu: {new Date(log.leaveTime).toLocaleTimeString("pt-BR", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </span>
+                )}
+              </>
             )}
           </motion.div>
         ))}

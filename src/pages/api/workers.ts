@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import mongoose from "mongoose";
-import Worker from "@/models/Worker"; // Adjust the import path
+import Worker from "@/models/Worker";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   await mongoose.connect(process.env.MONGODB_URI as string);
@@ -17,8 +17,33 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     case "POST":
       try {
-        const { name, role } = req.body;
-        const worker = new Worker({ name, role });
+        const {
+          name,
+          cpf,
+          nascimento,
+          admissao,
+          salario,
+          numero,
+          email,
+          address,
+          contract,
+          role,
+        } = req.body;
+
+        const worker = new Worker({
+          name,
+          cpf,
+          nascimento,
+          admissao,
+          salario,
+          numero,
+          email,
+          address,
+          contract,
+          role,
+          logs: [],
+        });
+
         await worker.save();
         res.status(201).json(worker);
       } catch (error) {
@@ -39,7 +64,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           if (lastLog && !lastLog.leaveTime) {
             lastLog.leaveTime = new Date();
           }
+        } else if (action === "faltou") {
+          worker.logs.push({ faltou: true, date: new Date() }); // Mark absence
         }
+
         await worker.save();
         res.status(200).json(worker);
       } catch (error) {

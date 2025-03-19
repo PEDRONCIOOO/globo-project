@@ -2,11 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import logo2 from "../../public/globoo.svg";
 
 const TABS = [
   { label: "Home", href: "/" },
   { label: "Controles", href: "/controles" },
   { label: "Cadastros", href: "/cadastros" },
+  { label: "Tabelas", href: "/tabelas"},
   { label: "Configuração", href: "/ponto" },
 ];
 
@@ -37,6 +40,8 @@ export function AnimatedTabs() {
   };
 
   return (
+    <>  
+    <Image draggable="false" src={logo2} width={150} height={150} alt="Logo Globoo" className="flex self-center justify-self-center mt-4" />
     <div className="relative mx-auto flex w-fit flex-col items-center rounded-full mt-5">
       <div
         ref={containerRef}
@@ -74,5 +79,6 @@ export function AnimatedTabs() {
         })}
       </div>
     </div>
+    </>
   );
 }

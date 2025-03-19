@@ -84,7 +84,7 @@ if (isLoading) return <div className="flex items-center justify-center">
     if (error) return <p className="text-center text-red-500">Error: {(error as Error).message}</p>;
 
     return (
-        <div className="flex gap-4 flex-wrap justify-center">
+        <div className="grid grid-cols-3 justify-items-center max-w-[1000px] mx-auto">
             <AnimatePresence>
                 {visitors.map((visitor) => (
                     <VisitorCard

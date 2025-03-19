@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Globoo Administrativo",
-  description: "Sistema de gestão de vendas e estoque.",
+  description: "Sistema Administrativo para Globoo.",
 };
 
 export default function RootLayout({

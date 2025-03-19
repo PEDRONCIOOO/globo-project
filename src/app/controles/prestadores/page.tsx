@@ -87,7 +87,7 @@ const PrestadoresPage: React.FC = () => {
 
     return (
         
-        <div className="flex gap-4 flex-wrap justify-center">
+        <div className="grid grid-cols-3 justify-items-center max-w-[1000px] mx-auto">
             <AnimatePresence>
                 {prestadores.map((prestador) => (
                     <PrestadorCard

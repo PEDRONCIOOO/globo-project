@@ -9,7 +9,17 @@ import { Spinner } from "@/components/Spinner";
 
 const EmployeesRegisterPage: React.FC = () => {
     const queryClient = useQueryClient();
+
+    // State for all required fields
     const [name, setName] = useState("");
+    const [cpf, setCpf] = useState("");
+    const [nascimento, setNascimento] = useState("");
+    const [admissao, setAdmissao] = useState("");
+    const [salario, setSalario] = useState("");
+    const [numero, setNumero] = useState("");
+    const [email, setEmail] = useState("");
+    const [address, setAddress] = useState("");
+    const [contract, setContract] = useState("");
     const [role, setRole] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const [isPageLoading, setIsPageLoading] = useState(true);
@@ -20,11 +30,29 @@ const EmployeesRegisterPage: React.FC = () => {
     }, []);
 
     const addWorker = useMutation({
-        mutationFn: (newWorker: { name: string; role: string }) =>
-            axios.post("/api/workers", newWorker),
+        mutationFn: (newWorker: {
+            name: string;
+            cpf: string;
+            nascimento: string;
+            admissao: string;
+            salario: string;
+            numero: string;
+            email: string;
+            address: string;
+            contract: string;
+            role: string;
+        }) => axios.post("/api/workers", newWorker),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["workers"] });
             setName("");
+            setCpf("");
+            setNascimento("");
+            setAdmissao("");
+            setSalario("");
+            setNumero("");
+            setEmail("");
+            setAddress("");
+            setContract("");
             setRole("");
             setSuccessMessage("Worker successfully added!");
             setTimeout(() => setSuccessMessage(""), 3000); // Clear message after 3 seconds
@@ -37,8 +65,32 @@ const EmployeesRegisterPage: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (name.trim() && role.trim()) {
-            addWorker.mutate({ name, role });
+        if (
+            name.trim() &&
+            cpf.trim() &&
+            nascimento.trim() &&
+            admissao.trim() &&
+            salario.trim() &&
+            numero.trim() &&
+            email.trim() &&
+            address.trim() &&
+            contract.trim() &&
+            role.trim()
+        ) {
+            addWorker.mutate({
+                name,
+                cpf,
+                nascimento,
+                admissao,
+                salario,
+                numero,
+                email,
+                address,
+                contract,
+                role,
+            });
+        } else {
+            alert("Please fill in all fields");
         }
     };
 
@@ -96,6 +148,94 @@ const EmployeesRegisterPage: React.FC = () => {
                             name="name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
+                            required
+                        />
+                    </motion.div>
+                    <motion.div variants={inputVariants}>
+                        <label htmlFor="cpf" className="block text-sm font-medium text-gray-300">CPF:</label>
+                        <InputFocusBlur
+                            type="text"
+                            id="cpf"
+                            name="cpf"
+                            value={cpf}
+                            onChange={(e) => setCpf(e.target.value)}
+                            required
+                        />
+                    </motion.div>
+                    <motion.div variants={inputVariants}>
+                        <label htmlFor="nascimento" className="block text-sm font-medium text-gray-300">Nascimento:</label>
+                        <InputFocusBlur
+                            type="date"
+                            id="nascimento"
+                            name="nascimento"
+                            value={nascimento}
+                            onChange={(e) => setNascimento(e.target.value)}
+                            required
+                        />
+                    </motion.div>
+                    <motion.div variants={inputVariants}>
+                        <label htmlFor="admissao" className="block text-sm font-medium text-gray-300">Admissão:</label>
+                        <InputFocusBlur
+                            type="date"
+                            id="admissao"
+                            name="admissao"
+                            value={admissao}
+                            onChange={(e) => setAdmissao(e.target.value)}
+                            required
+                        />
+                    </motion.div>
+                    <motion.div variants={inputVariants}>
+                        <label htmlFor="salario" className="block text-sm font-medium text-gray-300">Salário:</label>
+                        <InputFocusBlur
+                            type="text"
+                            id="salario"
+                            name="salario"
+                            value={salario}
+                            onChange={(e) => setSalario(e.target.value)}
+                            required
+                        />
+                    </motion.div>
+                    <motion.div variants={inputVariants}>
+                        <label htmlFor="numero" className="block text-sm font-medium text-gray-300">Número:</label>
+                        <InputFocusBlur
+                            type="text"
+                            id="numero"
+                            name="numero"
+                            value={numero}
+                            onChange={(e) => setNumero(e.target.value)}
+                            required
+                        />
+                    </motion.div>
+                    <motion.div variants={inputVariants}>
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-300">Email:</label>
+                        <InputFocusBlur
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </motion.div>
+                    <motion.div variants={inputVariants}>
+                        <label htmlFor="address" className="block text-sm font-medium text-gray-300">Endereço:</label>
+                        <InputFocusBlur
+                            type="text"
+                            id="address"
+                            name="address"
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            required
+                        />
+                    </motion.div>
+                    <motion.div variants={inputVariants}>
+                        <label htmlFor="contract" className="block text-sm font-medium text-gray-300">Contrato:</label>
+                        <InputFocusBlur
+                            type="text"
+                            id="contract"
+                            name="contract"
+                            value={contract}
+                            onChange={(e) => setContract(e.target.value)}
                             required
                         />
                     </motion.div>

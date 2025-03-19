@@ -17,16 +17,46 @@ const containerVariants = {
 
 const AddWorker: React.FC = () => {
   const queryClient = useQueryClient();
+
+  // State for all required fields
   const [name, setName] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [nascimento, setNascimento] = useState("");
+  const [admissao, setAdmissao] = useState("");
+  const [salario, setSalario] = useState("");
+  const [numero, setNumero] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [contract, setContract] = useState("");
   const [role, setRole] = useState("");
 
   const addWorker = useMutation({
-    mutationFn: (newWorker: { name: string; role: string }) =>
-      axios.post("/api/workers", newWorker),
+    mutationFn: (newWorker: {
+      name: string;
+      cpf: string;
+      nascimento: string;
+      admissao: string;
+      salario: string;
+      numero: string;
+      email: string;
+      address: string;
+      contract: string;
+      role: string;
+    }) => axios.post("/api/workers", newWorker),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["workers"] });
       alert("Worker added successfully");
+
+      // Reset all fields
       setName("");
+      setCpf("");
+      setNascimento("");
+      setAdmissao("");
+      setSalario("");
+      setNumero("");
+      setEmail("");
+      setAddress("");
+      setContract("");
       setRole("");
     },
     onError: (error) => {
@@ -37,8 +67,34 @@ const AddWorker: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (name.trim() && role.trim()) {
-      addWorker.mutate({ name, role });
+
+    // Ensure all fields are filled
+    if (
+      name.trim() &&
+      cpf.trim() &&
+      nascimento.trim() &&
+      admissao.trim() &&
+      salario.trim() &&
+      numero.trim() &&
+      email.trim() &&
+      address.trim() &&
+      contract.trim() &&
+      role.trim()
+    ) {
+      addWorker.mutate({
+        name,
+        cpf,
+        nascimento,
+        admissao,
+        salario,
+        numero,
+        email,
+        address,
+        contract,
+        role,
+      });
+    } else {
+      alert("Please fill in all fields");
     }
   };
 
@@ -70,7 +126,71 @@ const AddWorker: React.FC = () => {
           />
           <input
             type="text"
-            placeholder="Worker Role"
+            placeholder="CPF"
+            value={cpf}
+            onChange={(e) => setCpf(e.target.value)}
+            className="px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:border-cyan-500"
+            required
+          />
+          <input
+            type="date"
+            placeholder="Nascimento"
+            value={nascimento}
+            onChange={(e) => setNascimento(e.target.value)}
+            className="px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:border-cyan-500"
+            required
+          />
+          <input
+            type="date"
+            placeholder="Admissao"
+            value={admissao}
+            onChange={(e) => setAdmissao(e.target.value)}
+            className="px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:border-cyan-500"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Salario"
+            value={salario}
+            onChange={(e) => setSalario(e.target.value)}
+            className="px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:border-cyan-500"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Numero"
+            value={numero}
+            onChange={(e) => setNumero(e.target.value)}
+            className="px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:border-cyan-500"
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:border-cyan-500"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            className="px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:border-cyan-500"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Contract"
+            value={contract}
+            onChange={(e) => setContract(e.target.value)}
+            className="px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:border-cyan-500"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Role"
             value={role}
             onChange={(e) => setRole(e.target.value)}
             className="px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:border-cyan-500"

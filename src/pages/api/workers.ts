@@ -53,29 +53,32 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
       break;
 
-    case "PUT":
-      try {
-        const { id, action } = req.body;
-        const worker = await Worker.findById(id);
-        if (!worker) throw new Error("Worker not found");
-
-        if (action === "entrada") {
-          worker.logs.push({ entryTime: new Date() });
-        } else if (action === "saida") {
-          const lastLog = worker.logs[worker.logs.length - 1];
-          if (lastLog && !lastLog.leaveTime) {
-            lastLog.leaveTime = new Date();
+      case "PUT":
+        try {
+          const { id, action, updates } = req.body;
+          const worker = await Worker.findById(id);
+          if (!worker) throw new Error("Worker not found");
+      
+          if (action === "entrada") {
+            worker.logs.push({ entryTime: new Date() });
+          } else if (action === "saida") {
+            const lastLog = worker.logs[worker.logs.length - 1];
+            if (lastLog && !lastLog.leaveTime) {
+              lastLog.leaveTime = new Date();
+            }
+          } else if (action === "faltou") {
+            worker.logs.push({ faltou: true, date: new Date() }); // Mark absence
+          } else if (updates) {
+            // Handle updates to worker details
+            Object.assign(worker, updates);
           }
-        } else if (action === "faltou") {
-          worker.logs.push({ faltou: true, date: new Date() }); // Mark absence
+      
+          await worker.save();
+          res.status(200).json(worker);
+        } catch (error) {
+          res.status(500).json({ message: "Failed to update worker", error });
         }
-
-        await worker.save();
-        res.status(200).json(worker);
-      } catch (error) {
-        res.status(500).json({ message: "Failed to update worker", error });
-      }
-      break;
+        break;
 
     case "DELETE":
       try {

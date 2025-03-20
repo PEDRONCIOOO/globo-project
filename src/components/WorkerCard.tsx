@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { XCircleIcon } from "@heroicons/react/16/solid";
+import { XCircleIcon, PencilIcon } from "@heroicons/react/16/solid";
 
 const itemVariants = {
   hidden: { 
@@ -25,7 +25,8 @@ const WorkerCard = ({
   onCheckIn, 
   onCheckOut, 
   onFaltou, 
-  onDelete 
+  onDelete,
+  onEdit 
 }: {
   worker: { _id: string; name: string; role: string; logs: { entryTime?: string; leaveTime?: string; faltou?: boolean; date?: string }[] };
   buttonState: Map<string, { checkInDisabled: boolean; checkOutDisabled: boolean }>;
@@ -33,20 +34,29 @@ const WorkerCard = ({
   onCheckOut: (id: string) => void;
   onFaltou: (id: string) => void;
   onDelete: (id: string) => void;
+  onEdit: (id: string) => void;
 }) => (
   <motion.div
     variants={itemVariants}
     className="relative p-4 mb-4 bg-gray-800 rounded-lg shadow-md max-w-2xs w-full max-h-[200px] overflow-auto"
     layout
   >
-    <button
-      onClick={() => onDelete(worker._id)}
-      className="absolute top-2 right-2 p-1 bg-red-400 hover:bg-red-700 rounded-full transition-colors"
-    >
-      <XCircleIcon className="h-4 w-4 text-white" />
-    </button>
+    <div className="absolute top-2 right-2 flex gap-2">
+      <button
+        onClick={() => onEdit(worker._id)} // Trigger the edit handler
+        className="p-1 bg-blue-400 hover:bg-cyan-700 rounded-full transition-colors"
+      >
+        <PencilIcon className="h-4 w-4 text-white" />
+      </button>
+      <button
+        onClick={() => onDelete(worker._id)}
+        className="p-1 bg-red-400 hover:bg-red-700 rounded-full transition-colors"
+      >
+        <XCircleIcon className="h-4 w-4 text-white" />
+      </button>
+    </div>
   
-    <h3 className="font-semibold text-lg mb-2">{worker.name}</h3>
+    <h3 className="font-semibold text-lg mb-2 text-white">{worker.name}</h3>
     <p className="text-sm text-gray-400 mb-4">{worker.role}</p> {/* Display the role */}
   
     <div className="flex gap-3 mb-3">
@@ -82,7 +92,7 @@ const WorkerCard = ({
             className="flex justify-between"
           >
             {log.faltou ? (
-              <span>
+              <span className="text-red-500">
                 ❌ Faltou: {new Date(log.date!).toLocaleDateString("pt-BR")}
               </span>
             ) : (

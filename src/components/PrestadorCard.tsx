@@ -44,7 +44,7 @@ const PrestadorCard = ({
       <XCircleIcon className="h-4 w-4 text-white" />
     </button>
   
-    <h3 className="font-semibold text-lg mb-2">{prestador.name}</h3>
+    <h3 className="font-semibold text-lg mb-2 text-white">{prestador.name}</h3>
     <p className="text-sm text-gray-400 mb-2">Empresa: {prestador.company}</p>
     <p className="text-sm text-gray-400 mb-2">Telefone: {prestador.phone}</p>
     <p className="text-sm text-gray-400 mb-2">Serviço: {prestador.service}</p>

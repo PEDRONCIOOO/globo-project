@@ -44,7 +44,7 @@ const VisitorCard = ({
       <XCircleIcon className="h-4 w-4 text-white" />
     </button>
   
-    <h3 className="font-semibold text-lg mb-2">{visitor.name}</h3>
+    <h3 className="font-semibold text-lg mb-2 text-white">{visitor.name}</h3>
     <p className="text-sm text-gray-400 mb-2">RG: {visitor.rg}</p>
     <p className="text-sm text-gray-400 mb-2">CPF: {visitor.cpf}</p>
     <p className="text-sm text-gray-400 mb-2">Telefone: {visitor.phone}</p>
